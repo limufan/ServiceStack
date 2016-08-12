@@ -75,16 +75,13 @@ namespace ServiceStack.Messaging
 
 	    public void Publish(string queueName, IMessage message)
         {
-            using (__requestAccess())
-            {
-                var messageBytes = message.ToBytes();
-                this.ReadWriteClient.LPush(queueName, messageBytes);
-                this.ReadWriteClient.Publish(QueueNames.TopicIn, queueName.ToUtf8Bytes());
+            var messageBytes = message.ToBytes();
+            this.ReadWriteClient.LPush(queueName, messageBytes);
+            this.ReadWriteClient.Publish(QueueNames.TopicIn, queueName.ToUtf8Bytes());
 
-                if (onPublishedCallback != null)
-                {
-                    onPublishedCallback();
-                }
+            if (onPublishedCallback != null)
+            {
+                onPublishedCallback();
             }
         }
 
@@ -97,11 +94,6 @@ namespace ServiceStack.Messaging
             {
                 this.token = token;
             }
-        }
-
-        protected IDisposable __requestAccess()
-        {
-            return LicenseUtils.RequestAccess(AccessToken.__accessToken, LicenseFeature.Client, LicenseFeature.Text);
         }
 
 		public void Dispose()

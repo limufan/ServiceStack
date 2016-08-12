@@ -55,18 +55,12 @@ namespace ServiceStack
 
         internal static T FromJsv<T>(string jsv)
         {
-            using (__requestAccess())
-            {
-                return jsv.FromJsv<T>();
-            }
+            return jsv.FromJsv<T>();
         }
 
         internal static string ToJsv<T>(T o)
         {
-            using (__requestAccess())
-            {
-                return o.ToJsv();
-            }
+            return o.ToJsv();
         }
     }
 }

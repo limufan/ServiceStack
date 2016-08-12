@@ -50,26 +50,17 @@ namespace ServiceStack
 
         internal static JsonObject ParseObject(string json)
         {
-            using (__requestAccess())
-            {
-                return JsonObject.Parse(json);
-            }
+            return JsonObject.Parse(json);
         }
 
         public static T FromJson<T>(string json)
         {
-            using (__requestAccess())
-            {
-                return json.FromJson<T>();
-            }
+            return json.FromJson<T>();
         }
 
         public static string ToJson<T>(T o)
         {
-            using (__requestAccess())
-            {
-                return o.ToJson();
-            }
+            return o.ToJson();
         }
     }
 }
